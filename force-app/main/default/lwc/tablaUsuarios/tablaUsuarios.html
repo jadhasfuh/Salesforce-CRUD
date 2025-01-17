@@ -1,0 +1,50 @@
+<template>
+    <lightning-card title="Lista de Usuarios">
+        <div class="slds-p-around_medium">
+
+            <!-- Filtrador-->
+            <lightning-input label="Buscar" type="text" placeholder="Filtrar por nombre o email" value={palabraFiltro}
+                onchange={handlePalabraFiltro}> 
+            </lightning-input>
+
+            <div class="slds-button-group">
+
+                <!-- Insertar -->
+                <c-insertar oninsertado={handleInsertado} class="slds-m-around_medium slds-m-left_none"></c-insertar>
+                <c-eliminar-todo oneliminado={handleEliminado} class="slds-m-around_medium slds-m-left_none"></c-eliminar-todo>
+
+                <!-- Crear -->
+                <lightning-button class="slds-m-around_medium slds-m-left_none" label="Nuevo Usuario" variant="brand"
+                    onclick={openModalCreacion}></lightning-button>
+                <c-crear-usuario class="slds-m-around_medium slds-m-left_none" is-open={isModalOpenCreacion} onclose={handleCloseModalCreacion}
+                    onsuccess={handleSuccessCreado} onerror={handleErrorCreado}>
+                </c-crear-usuario>
+
+                <!-- Editar -->
+                <c-editar-usuario usuario={usuario} is-open={isModalOpenEdicion} onclose={handleCloseModalEdicion}
+                    onsuccess={handleSuccessEditado} onerror={handleErrorEditado}>
+                </c-editar-usuario>
+
+                <!-- Botón de eliminar, visible solo si hay registros seleccionados -->
+                <template if:true={filasSeleccionadas.length}>
+                    <lightning-button class="slds-m-around_medium slds-m-left_none" label="Eliminar seleccionados"
+                        onclick={handleSeleccionados}></lightning-button>
+                </template>
+
+            </div>
+
+            <!-- Tabla -->
+            <lightning-datatable key-field="id" data={usuariosAMostrar} columns={columnas}
+                onrowselection={handleSeleccion} onrowaction={handleRowAction}></lightning-datatable>
+
+            <!-- Paginacion -->
+            <div class="slds-grid slds-grid_align-spread">
+                <lightning-button label="Anterior" onclick={handleAnterior}
+                    disabled={esPrimeraPagina}></lightning-button>
+                <p>Pagina {paginaActual} of {totalPaginas}</p>
+                <lightning-button label="Siguiente" onclick={handleSiguiente}
+                    disabled={esUltimaPagina}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

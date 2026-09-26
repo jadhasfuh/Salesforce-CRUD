@@ -1,18 +1,34 @@
-# Salesforce DX Project: Next Steps
+# CRUD en Salesforce con LWC y Apex
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+Ejemplo mínimo y completo de un CRUD en Salesforce: cuatro Lightning Web
+Components que crean, consultan, editan y borran registros, contra una clase
+Apex con sus pruebas.
 
-## How Do You Plan to Deploy Your Changes?
+| Componente | Qué hace |
+|---|---|
+| `crearUsuario` | Formulario de alta, valida y llama a Apex |
+| `editarUsuario` | Carga un registro y guarda los cambios |
+| `eliminarTodo` | Borrado masivo con confirmación |
+| `PruebaUsuarioCRUD.cls` | La clase Apex y sus pruebas unitarias |
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+Cada componente lleva su carpeta `__tests__` con pruebas de Jest, que es la
+parte que casi nunca se enseña en los ejemplos de CRUD.
 
-## Configure Your Salesforce DX Project
+## Correr
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+```bash
+sf org create scratch -f config/project-scratch-def.json -a crud
+sf project deploy start -o crud
+sf org open -o crud
+npm test          # las pruebas de los LWC
+```
 
-## Read All About It
+## Para qué sirve
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Es la plantilla de referencia que uso al empezar cualquier cosa en
+Salesforce: la estructura de carpetas de SFDX, el trato entre LWC y Apex,
+los metadatos y las pruebas en su sitio.
+
+---
+
+Hecho por [Adrián Ceja Rentería](https://ayotl.dev/acerca) · [ayotl.dev](https://ayotl.dev)
